@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.12.5/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+  <title>- Adicionar Novo Empenho -</title>
+</head>
+
+
+<div id="app">
+  <!-- {{ message }} -->
+  <q-form class="q-pa-md"
+    @submit="handleChange"
+  >
+    <div class="q-gutter-md">
+
+      <q-input
+        mask="AAA-#X##"
+        square outlined
+        v-model="text"
+        label="Placa do Veículo"
+        :rules="[val => val.length === 8 || 'Insira uma placa válida']"
+        lazy-rule>
+     </q-input>
+
+      <q-select
+        square outlined
+        v-model="secretaria"
+        :options="secretarias"
+        label="Secretaria">
+      </q-select>
+
+      <q-input
+        square outlined
+        v-model="numeroEmpenho"
+        type="number"
+        :rules="[ val => val !== '' || 'Insira um valor válido' ]"
+        lazy-rule
+        label="Número do Empenho">
+      </q-input>
+
+      <q-input
+        square outlined
+        v-model="anoEmpenho"
+        label="Ano do Empenho">
+      </q-input>
+
+      <q-input
+        square outlined
+        v-model="numeroProcesso"
+        label="Processo do Envio das Notas Fiscais">
+      </q-input>
+
+      <q-input
+        square outlined
+        v-model="anoProcesso"
+        label="Ano do Processo">
+      </q-input>
+      
+      <q-input
+        :rules="[val => val > 0 || 'Insira um valor válido']"
+        square outlined v-model="valor"
+        label="Valor do Empenho"
+        controls-position="right"
+        prefix="R$"
+        lazy-rule
+        >
+      </q-input>
+
+      <q-checkbox v-model="check" label="Valor foi pago?"></q-checkbox>
+      <q-btn type="submit">Adicionar</q-btn>
+
+      <q-input outlined v-model="number" prefix="$" suffix="s" label-slot clearable>
+        <template v-slot:prepend>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg">
+          </q-avatar>
+        </template>
+
+        <template v-slot:label>
+          <span class="text-weight-bold text-deep-orange">You</span>
+          can customize the <span class="q-px-sm bg-deep-orange text-white text-italic rounded-borders">label</span>
+        </template>
+      </q-input>
+      
+    </div>
+  </q-form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quasar@2.12.5/dist/quasar.umd.prod.js"></script>
+
+<script>
+  const { createApp } = Vue
+  const app = createApp({
+    data() {
+      return {
+        secretaria: null,
+        text: '',
+        numeroEmpenho: '',
+        anoEmpenho: new Date().getFullYear(),
+        numeroProcesso: '',
+        anoProcesso: new Date().getFullYear(),
+        valor: '',
+        check: false,
+        secretarias: [
+          "Saúde",
+          "Educação",
+          "Administração",
+          "Obras",
+          "Agricultura",
+          "Assistência Social",
+          "Gabinete",
+          "Planejamento"
+        ]
+      }
+    },
+    methods: {
+      handleChange() {
+        alert(`${this.text} ${this.secretaria} ${this.numeroEmpenho} ${this.anoEmpenho} ${this.numeroProcesso ? this.numeroProcesso : '-'} ${this.anoProcesso} ${this.valor} ${this.check ? 'Pago' : 'Pendente'}`)
+
+      }
+    }
+
+  })
+  app.use(Quasar)
+  app.mount('#app')
+</script>
+
+
+
+</html>
+
