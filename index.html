@@ -104,21 +104,42 @@
         valor: '',
         check: false,
         secretarias: [
-          "Saúde",
-          "Educação",
-          "Administração",
-          "Obras",
+          "Adm. Fazendária",
           "Agricultura",
-          "Assistência Social",
+          "Ass. Social",
+          "Educação",
+          "Saúde",
           "Gabinete",
+          "Obras",
+          "Ind. & Com.",
+          "Meio Ambiente",
+          "Trânsito",
           "Planejamento"
         ]
       }
     },
     methods: {
       handleChange() {
-        alert(`${this.text} ${this.secretaria} ${this.numeroEmpenho} ${this.anoEmpenho} ${this.numeroProcesso ? this.numeroProcesso : '-'} ${this.anoProcesso} ${this.valor} ${this.check ? 'Pago' : 'Pendente'}`)
+        // alert(
+        //   `${this.text} 
+        // ${this.secretaria}
+        // ${this.numeroEmpenho}
+        // ${this.anoEmpenho}
+        // ${this.numeroProcesso ? this.numeroProcesso : '-'}
+        // ${this.anoProcesso} 
+        // ${this.valor}
+        // ${this.check ? 'Pago' : 'Pendente'}`)
 
+        google.script.run.insertData(
+          [
+            this.text,
+            this.secretaria,
+            `${this.numeroEmpenho}/${this.anoEmpenho} `,
+            `${this.numeroProcesso ? this.numeroProcesso + "/" + this.anoProcesso : '-'}`,
+            this.valor,
+            `${this.check ? 'VERDADEIRO' : 'FALSO'}`
+          ]
+        )
       }
     }
 
